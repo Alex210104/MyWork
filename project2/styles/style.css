@@ -1,7 +1,7 @@
 @charset "UTF-8";
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -30,10 +30,6 @@ body header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  box-shadow: 0 10px 6px -6px #777;
 }
 body header section.logo {
   flex: 2 1 400px;
@@ -78,7 +74,7 @@ body main section.background-img {
   justify-content: center;
   align-items: center;
 }
-body main section.background-img div.fliter {
+body main section.background-img div.filter {
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   min-height: 70vh;
@@ -110,6 +106,7 @@ body main section.info-circles div.circles div.circle {
   flex: 0 1 250px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 body main section.info-circles div.circles div.circle img {
   width: 80%;
@@ -144,8 +141,8 @@ body main section.google-map p {
   margin: 1rem;
 }
 body main section.google-map iframe {
-  height: 40vh;
   width: 100%;
+  height: 40vh;
 }
 body footer {
   display: flex;
@@ -159,18 +156,14 @@ body footer section.logo img {
   width: 20vw;
 }
 body footer section.logo h3 {
-  text-align: center;
   font-size: 2.5rem;
 }
 body footer section.links {
-  margin-top: 0.5rem;
-}
-body footer section.links a {
-  align-items: center;
+  margin-top: 2rem;
 }
 body footer section.links a img {
   width: 5vh;
-  margin: 0rem 1.5rem;
+  margin: 0rem 1rem;
 }
 
 @media screen and (max-width: 700px) {
@@ -185,16 +178,6 @@ body footer section.links a img {
     flex-direction: column;
   }
   body header nav ul li {
-    padding: 0.5rem 0.2rem;
-  }
-  body footer section.logo {
-    flex-direction: column;
-  }
-  body footer section.logo img {
-    width: 70vw;
-    height: 40vw;
-  }
-  body footer section.logo a {
-    padding-bottom: 8rem;
+    padding: 0.5rem 0.25rem;
   }
 }/*# sourceMappingURL=style.css.map */

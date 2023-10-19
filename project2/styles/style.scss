@@ -1,8 +1,8 @@
 $themeColor: rgba(152, 57, 255, 0.5);
 
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -19,24 +19,18 @@ body {
   position: relative;
 
   img.fixed-image {
-    min-height: 100vh; //100vh佔滿整個螢幕高度
+    min-height: 100vh;
     position: fixed;
     width: 100%;
-    z-index: -5; //讓他在我們主軸下方
+    z-index: -5;
     bottom: 0;
     left: 0;
   }
-
   header {
     background-color: white;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    //nav sticky & box-shadow
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    box-shadow: 0 10px 6px -6px #777;
 
     section.logo {
       flex: 2 1 400px;
@@ -46,6 +40,7 @@ body {
       h1 {
         font-size: 2.5rem;
       }
+
       img {
         width: 6vw;
         height: 6vw;
@@ -85,13 +80,13 @@ body {
       background-position: center;
       transition: all 0.75s ease;
       position: relative;
-      z-index: 0; // stacking content
+      z-index: 0; // stacking context
 
       display: flex;
       justify-content: center;
       align-items: center;
 
-      div.fliter {
+      div.filter {
         background-color: rgba(0, 0, 0, 0.5);
         width: 100%;
         min-height: 70vh;
@@ -107,6 +102,7 @@ body {
         text-align: center;
       }
     }
+
     section.info-circles {
       background-color: white;
       padding: 2rem 1rem;
@@ -128,13 +124,13 @@ body {
           flex: 0 1 250px;
           display: flex;
           flex-direction: column;
+          align-items: center;
 
           img {
             width: 80%;
             border-radius: 50%;
             transition: all 0.1s ease-in;
             padding: 0.3rem;
-            //圖片邊框顏色
             &:hover {
               border: 3px solid $themeColor;
             }
@@ -160,19 +156,17 @@ body {
       background-color: white;
       padding: 2rem 1rem;
       text-align: center;
-
       h3 {
         font-size: 2.5rem;
       }
-
       p {
         font-size: 1.25rem;
         margin: 1rem;
       }
 
       iframe {
-        height: 40vh;
         width: 100%;
+        height: 40vh;
       }
     }
   }
@@ -190,24 +184,22 @@ body {
         width: 20vw;
       }
       h3 {
-        text-align: center;
         font-size: 2.5rem;
       }
     }
+
     section.links {
-      margin-top: 0.5rem;
+      margin-top: 2rem;
       a {
-        align-items: center;
         img {
           width: 5vh;
-          margin: 0rem 1.5rem;
+          margin: 0rem 1rem;
         }
       }
     }
   }
 }
 
-//nav 的rwd 設定最大寬度為700px 當小於後轉換flex-direction
 @media screen and (max-width: 700px) {
   body {
     header {
@@ -222,20 +214,8 @@ body {
         ul {
           flex-direction: column;
           li {
-            padding: 0.5rem 0.2rem;
+            padding: 0.5rem 0.25rem;
           }
-        }
-      }
-    }
-    footer {
-      section.logo {
-        flex-direction: column;
-        img {
-          width: 70vw;
-          height: 40vw;
-        }
-        a {
-          padding-bottom: 8rem;
         }
       }
     }
