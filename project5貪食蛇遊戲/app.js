@@ -1,15 +1,14 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
-// getContext() method會回傳一個canvas的drawing context
+// getContext() method會回傳一個canvas的drawing context，
 // drawing context可以用來在canvas內畫圖
 const unit = 20;
-const row = canvas.height / unit;
-const column = canvas.width / unit;
+const row = canvas.height / unit; // 320 / 20 = 16
+const column = canvas.width / unit; // 320 / 20 = 16
 
-let snake = []; //array中的每個元素都是一個物件
-//物件的工作為，儲存身體的x,y座標
-
+let snake = []; // array中的每個元素，都是一個物件
 function createSnake() {
+  // 物件的工作是，儲存身體的x, y座標
   snake[0] = {
     x: 80,
     y: 0,
@@ -32,20 +31,17 @@ function createSnake() {
 }
 
 class Fruit {
-  //果實製作
-  //果實邏輯:隨機取數 無條件捨去 乘 行列的總數 再去乘上 unit
   constructor() {
     this.x = Math.floor(Math.random() * column) * unit;
     this.y = Math.floor(Math.random() * row) * unit;
   }
 
-  //畫出果實
   drawFruit() {
     ctx.fillStyle = "yellow";
     ctx.fillRect(this.x, this.y, unit, unit);
   }
 
-  pickLocation() {
+  pickALocation() {
     let overlapping = false;
     let new_x;
     let new_y;
@@ -73,65 +69,58 @@ class Fruit {
   }
 }
 
-//初始設定
+// 初始設定
 createSnake();
 let myFruit = new Fruit();
-
 window.addEventListener("keydown", changeDirection);
 let d = "Right";
-function changeDirection(event) {
-  //console.log(event);檢視
-  if (event.key == "ArrowRight" && d != "Left") {
+function changeDirection(e) {
+  if (e.key == "ArrowRight" && d != "Left") {
     d = "Right";
-  } else if (event.key == "ArrowDown" && d != "Up") {
+  } else if (e.key == "ArrowDown" && d != "Up") {
     d = "Down";
-  } else if (event.key == "ArrowLeft" && d != "Right") {
+  } else if (e.key == "ArrowLeft" && d != "Right") {
     d = "Left";
-  } else if (event.key == "ArrowUp" && d != "Down") {
+  } else if (e.key == "ArrowUp" && d != "Down") {
     d = "Up";
   }
 
-  //每次按下鍵之後，在下一幀被畫出來之前
-  //不接受任何keydone事件
-  //這樣可以防止連續按鍵導致蛇在邏輯上自殺
+  // 每次按下上下左右鍵之後，在下一幀被畫出來之前，
+  // 不接受任何keydown事件
+  // 這樣可以防止連續按鍵導致蛇在邏輯上自殺
   window.removeEventListener("keydown", changeDirection);
 }
-
 let highestScore;
-loadHigherScore();
+loadHighestScore();
 let score = 0;
-
 document.getElementById("myScore").innerHTML = "遊戲分數:" + score;
 document.getElementById("myScore2").innerHTML = "最高分數:" + highestScore;
+
 function draw() {
-  //每次畫圖之前確認蛇沒有咬到自己
+  // 每次畫圖之前，確認蛇有沒有咬到自己
   for (let i = 1; i < snake.length; i++) {
     if (snake[i].x == snake[0].x && snake[i].y == snake[0].y) {
       clearInterval(myGame);
       alert("遊戲結束");
+      return;
     }
   }
 
-  //每次畫之前都將背景設為黑色
+  // 背景全設定為黑色
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  //執行畫出果實
   myFruit.drawFruit();
 
-  //畫出蛇
+  // 劃出蛇
   for (let i = 0; i < snake.length; i++) {
     if (i == 0) {
-      ctx.fillStyle = "red";
-      //畫圖區域中索引值為0的色塊顏色
+      ctx.fillStyle = "lightgreen";
     } else {
       ctx.fillStyle = "lightblue";
     }
-    ctx.strokeStyle = "orange";
-    //色塊的邊框樣式
+    ctx.strokeStyle = "white";
 
-    // !!! 更正超出邊框時的座標 !!!
-    // 所以要在畫出座標前加入此程式
     if (snake[i].x >= canvas.width) {
       snake[i].x = 0;
     }
@@ -145,24 +134,22 @@ function draw() {
       snake[i].y = canvas.height - unit;
     }
 
-    //x,y,width,height
+    // x, y, width, height
     ctx.fillRect(snake[i].x, snake[i].y, unit, unit);
-    //最後畫出圖形
     ctx.strokeRect(snake[i].x, snake[i].y, unit, unit);
-    //畫出有框的樣式
   }
 
-  //以目前的d變數，來決定設的下一幀位置在哪個座標
-  let snakeX = snake[0].x;
+  // 以目前的d變數方向，來決定蛇的下一幀要放在哪個座標
+  let snakeX = snake[0].x; // snake[0]是一個物件，但snake[0].x是個number
   let snakeY = snake[0].y;
   if (d == "Left") {
     snakeX -= unit;
   } else if (d == "Up") {
     snakeY -= unit;
-  } else if (d == "Down") {
-    snakeY += unit;
   } else if (d == "Right") {
     snakeX += unit;
+  } else if (d == "Down") {
+    snakeY += unit;
   }
 
   let newHead = {
@@ -170,12 +157,9 @@ function draw() {
     y: snakeY,
   };
 
-  //確認蛇是否有吃到果實
+  // 確認蛇是否有吃到果實
   if (snake[0].x == myFruit.x && snake[0].y == myFruit.y) {
-    //重新選定 果實的新位置
-    myFruit.pickLocation();
-
-    //更新分數
+    myFruit.pickALocation();
     score++;
     setHighestScore(score);
     document.getElementById("myScore").innerHTML = "遊戲分數:" + score;
@@ -183,14 +167,15 @@ function draw() {
   } else {
     snake.pop();
   }
+
   snake.unshift(newHead);
   window.addEventListener("keydown", changeDirection);
 }
 
 let myGame = setInterval(draw, 100);
-//最高分設定
-function loadHigherScore() {
-  if (console.log(localStorage.getItem("highestScore") == null)) {
+
+function loadHighestScore() {
+  if (localStorage.getItem("highestScore") == null) {
     highestScore = 0;
   } else {
     highestScore = Number(localStorage.getItem("highestScore"));
@@ -199,7 +184,7 @@ function loadHigherScore() {
 
 function setHighestScore(score) {
   if (score > highestScore) {
-    localStorage.setItem("higherScore", score);
+    localStorage.setItem("highestScore", score);
     highestScore = score;
   }
 }
