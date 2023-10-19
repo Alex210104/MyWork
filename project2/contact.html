@@ -21,7 +21,7 @@
           <label for="msg">您的回饋:</label>
           <textarea id="msg" name="message"></textarea>
         </li>
-        <button>提交表單</button>
+        <button onclick="processFormData();addMsg()">提交表單</button>
       </ul>
     </form>
     <style>
@@ -80,5 +80,28 @@
         margin-left: 0.5em;
       }
     </style>
+    <script>
+      var nameElement = document.getElementById("name");
+      var emailElement = document.getElementById("email");
+      var feedbackElement = document.getElementById("msg");
+      function processFormData() {
+        const name = nameElement.value;
+        const email = emailElement.value;
+        alert("謝謝" + name + "的回饋，您的email:" + email);
+      }
+      function addMsg() {
+        let table = document.getElementById(feedbackElement);
+        let newRow = table.insertRow();
+        newRow.insertCell().innerHTML = new Date().toLocaleString;
+        newRow.insertCell().innerHTML = nameElement.value;
+        newRow.insertCell().innerHTML = emailElement.value;
+        newRow.insertCell().innerHTML = feedbackElement.value;
+        newRow.insertCell().innerHTML =
+          '<input type="button" value="Delete" onclick="delRow(this)"></input>';
+        nameElement.value = "";
+        emailElement.value = "";
+        feedbackElement.value = "";
+      }
+    </script>
   </body>
 </html>
