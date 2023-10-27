@@ -156,7 +156,7 @@ body footer section.logo img {
   width: 20vw;
 }
 body footer section.logo h3 {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 body footer section.links {
   margin-top: 2rem;
@@ -179,5 +179,10 @@ body footer section.links a img {
   }
   body header nav ul li {
     padding: 0.5rem 0.25rem;
+  }
+}
+@media screen and (max-width: 1300px) {
+  footer section.logo img.hide-on-small-screen {
+    display: none;
   }
 }/*# sourceMappingURL=style.css.map */
